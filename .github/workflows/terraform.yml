@@ -18,8 +18,8 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} 
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
         run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID # Configures AWS access key ID
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY # Configures AWS secret access key
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1 
@@ -27,20 +27,27 @@ jobs:
           terraform_version: 1.5.7 
 
       - name: Initialize Terraform
-        run: terraform init 
+        id: init
+        run: terraform init
+        working-directory: .
 
       - name: Validate Terraform
-        run: terraform validate 
+        id: validate
+        run: terraform validate -no-color
+        working-directory: . 
 
       - name: Plan Terraform Changes
-        run: terraform plan -out=tfplan 
-        continue-on-error: true 
+        id: plan
+        run: terraform plan -no-color
+        continue-on-error: true
+        working-directory: .
 
       - name: Apply Terraform Changes
-        if: ${{ success() }} 
-        run: terraform apply -auto-approve tfplan 
+        id: apply
+        run: terraform apply -auto-approve
+        continue-on-error: true
+        working-directory: .
 
       - name: Cleanup Terraform Files
-        if: ${{ success() }} 
+        if: steps.apply.outcome == 'success'
         run: rm -f tfplan
-
