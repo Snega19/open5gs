@@ -364,11 +364,11 @@ resource "aws_instance" "RAN-ec2" {
     destination = "/home/ubuntu/open5gs_kp"
   }
 
-  #   root_block_device {
-  #     volume_size = 25
-  #     volume_type = "io1"
-  #     iops        = 100
-  #   }
+    root_block_device {
+      volume_size = 25
+      volume_type = "io1"
+      iops        = 100
+    }
   tags = {
     Name = "RAN-ec2"
   }
