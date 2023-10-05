@@ -1,50 +1,45 @@
-name: Terraform GitHub Actions
+name: Terraform Workflow
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
-  build:
-    runs-on: ubuntu-20.04
+  terraform:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2 
 
-      - name: AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-
-      - name: AWS CLI
+      - name: Set up AWS credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
         run: |
-          aws --version
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID # Configures AWS access key ID
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY # Configures AWS secret access key
 
-      - name: Terraform Install
-        uses: hashicorp/setup-terraform@v1
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1 
+        with:
+          terraform_version: 1.5.7 
 
-      - name: Terraform Init
-        id: init
-        run: terraform init
-        working-directory: .
+      - name: Initialize Terraform
+        run: terraform init 
 
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
-        working-directory: .
+      - name: Validate Terraform
+        run: terraform validate 
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
-        continue-on-error: true
-        working-directory: .
+      - name: Plan Terraform Changes
+        run: terraform plan -out=tfplan 
+        continue-on-error: true 
 
-      - name: Terraform Apply
-        id: Apply
-        run: terraform apply -auto-approve
-        continue-on-error: true
-        working-directory: .
+      - name: Apply Terraform Changes
+        if: ${{ success() }} 
+        run: terraform apply -auto-approve tfplan 
+
+      - name: Cleanup Terraform Files
+        if: ${{ success() }} 
+        run: rm -f tfplan
