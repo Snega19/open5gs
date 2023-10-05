@@ -1,0 +1,33 @@
+# Terraform .terraform directories
+**/.terraform/*
+
+# Crash log files
+crash.log
+
+# Exclude any .tfstate files, which are sensitive and should not be committed
+*.tfstate
+*.tfstate.*
+
+# Exclude any .tfvars files that may contain sensitive information
+*.tfvars
+
+# Exclude override files as they are usually used to override resources in a workspace
+override.tf
+override.tf.json
+
+# Exclude CLI configuration files
+.terraformrc
+terraform.rc
+
+# Exclude .terraform.lock.hcl, a lock file for Terraform 0.15 and later
+.terraform.lock.hcl
+
+# Exclude sensitive files containing variables or secrets
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Exclude plugin binaries
+*.bin
+
+# Exclude .terraform subfolders
+.terraform
