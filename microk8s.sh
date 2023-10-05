@@ -8,3 +8,5 @@ sudo microk8s kubectl apply -f https://raw.githubusercontent.com/rancher/local-p
 sudo microk8s kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 sudo snap alias microk8s.kubectl kubectl
 sudo snap alias microk8s.helm helm
+
+
