@@ -386,7 +386,6 @@ resource "null_resource" "RAN-null-res" {
     inline = [
       "cloud-init status --wait",
       file("${path.module}/microk8s.sh"),
-      file("${path.module}/storageclass.sh"),
       file("${path.module}/ran.sh")
     ]
   }
