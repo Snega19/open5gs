@@ -44,7 +44,3 @@ jobs:
         if: ${{ success() }} 
         run: rm -f tfplan
 
-        
-      - name: Destroy Terraform Resources
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform destroy -auto-approve
