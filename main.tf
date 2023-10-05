@@ -437,7 +437,6 @@ resource "null_resource" "Monitoring-null-res" {
     inline = [
       "cloud-init status --wait",
       file("${path.module}/microk8s.sh"),
-      file("${path.module}/storageclass.sh"),
       file("${path.module}/Monitoring.sh")
     ]
   }
