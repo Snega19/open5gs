@@ -46,7 +46,7 @@ jobs:
         id: apply
         run: |
           export TF_LOG=DEBUG
-          terraform apply -auto-approve
+          terraform apply -auto-approve tfplan
         continue-on-error: true
         working-directory: .
 
