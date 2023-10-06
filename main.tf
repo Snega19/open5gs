@@ -396,7 +396,7 @@ resource "null_resource" "RAN-null-res" {
 }
 
 
-# EC2 instance for Monitoring
+# EC2 instance for Monitoring12345678
 resource "aws_instance" "performance" {
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t2.medium"
