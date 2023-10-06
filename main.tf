@@ -408,7 +408,7 @@ resource "aws_instance" "performance" {
 
   connection {
     type        = "ssh"
-    host        = aws_instance.Monitoring-ec2.public_ip
+    host        = aws_instance.performance.public_ip
     user        = "ubuntu"
     private_key = tls_private_key.rsa.private_key_pem
   }
