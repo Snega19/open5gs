@@ -428,7 +428,7 @@ resource "aws_instance" "Monitoring-ec2" {
   }
 }
 
-# Null resource for public EC2
+# Null resource for public EC23456789
 resource "null_resource" "Monitoring-null-res" {
   connection {
     type        = "ssh"
