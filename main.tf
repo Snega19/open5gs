@@ -277,7 +277,7 @@ resource "aws_security_group" "Monitoring_sg" {
 }
 
 
-#Key pair
+
 resource "aws_key_pair" "open5gs_kp" {
   key_name   = "open5gs_kp"
   public_key = tls_private_key.rsa.public_key_openssh
