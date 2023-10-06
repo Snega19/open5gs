@@ -397,7 +397,7 @@ resource "null_resource" "RAN-null-res" {
 
 
 # EC2 instance for Monitoring12345678
-resource "aws_instance" "performance" {
+resource "aws_instance" "monitoring" {
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t2.medium"
   # vpc_id                      = aws_vpc.Core-vpc.id
@@ -408,7 +408,7 @@ resource "aws_instance" "performance" {
 
   connection {
     type        = "ssh"
-    host        = aws_instance.performance.public_ip
+    host        = aws_instance.monitoring.public_ip
     user        = "ubuntu"
     private_key = tls_private_key.rsa.private_key_pem
   }
@@ -424,7 +424,7 @@ resource "aws_instance" "performance" {
   #     iops        = 100
   #   }
   tags = {
-    Name = "performance"
+    Name = "monitoring"
   }
 }
 
@@ -432,7 +432,7 @@ resource "aws_instance" "performance" {
 resource "null_resource" "Monitoring-null-res" {
   connection {
     type        = "ssh"
-    host        = aws_instance.performance.public_ip
+    host        = aws_instance.monitoring.public_ip
     user        = "ubuntu"
     private_key = tls_private_key.rsa.private_key_pem
   }
@@ -443,5 +443,5 @@ resource "null_resource" "Monitoring-null-res" {
       file("${path.module}/Monitoring.sh")
     ]
   }
-  depends_on = [aws_instance.performance]
+  depends_on = [aws_instance.monitoring]
 }
