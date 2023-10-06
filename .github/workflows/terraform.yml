@@ -44,7 +44,9 @@ jobs:
 
       - name: Apply Terraform Changes
         id: apply
-        run: terraform apply -auto-approve
+        run: |
+          export TF_LOG=DEBUG
+          terraform apply -auto-approve
         continue-on-error: true
         working-directory: .
 
