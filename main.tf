@@ -296,7 +296,7 @@ resource "local_file" "open5gs_kp" {
 resource "aws_instance" "core-ec2" {
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t3.medium"
-  # vpc_id                      = aws_vpc.Core-vpc.id
+# vpc_id                      = aws_vpc.Core-vpc.id
   key_name                    = "open5gs_kp"
   vpc_security_group_ids      = [aws_security_group.Core_sg.id]
   subnet_id                   = aws_subnet.core-subnet.id
