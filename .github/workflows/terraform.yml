@@ -38,7 +38,7 @@ jobs:
 
       - name: Plan Terraform Changes
         id: plan
-        run: terraform plan -no-color
+        run: terraform plan -out=tfplan -no-color
         continue-on-error: true
         working-directory: .
 
