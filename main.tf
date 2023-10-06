@@ -295,7 +295,7 @@ resource "local_file" "open5gs_kp" {
 # EC2 instance for core
 resource "aws_instance" "core-ec2" {
   ami           = "ami-053b0d53c279acc90"
-  instance_type = "t2.medium"
+  instance_type = "t3.medium"
   # vpc_id                      = aws_vpc.Core-vpc.id
   key_name                    = "open5gs_kp"
   vpc_security_group_ids      = [aws_security_group.Core_sg.id]
@@ -314,11 +314,11 @@ resource "aws_instance" "core-ec2" {
     destination = "/home/ubuntu/open5gs_kp"
   }
 
-  #   root_block_device {
-  #     volume_size = 25
-  #     volume_type = "io1"
-  #     iops        = 100
-  #   }
+    root_block_device {
+      volume_size = 25
+      volume_type = "io1"
+      iops        = 100
+    }
   tags = {
     Name = "core-ec2"
   }
