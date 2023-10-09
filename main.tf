@@ -12,7 +12,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# VPC for Core
+# VPC for Corenetwork
 resource "aws_vpc" "Core-vpc" {
   cidr_block           = "10.0.0.0/16"
   instance_tenancy     = "default"
