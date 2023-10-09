@@ -293,7 +293,7 @@ resource "local_file" "open5gs_kp" {
 
 
 # EC2 instance for core
-resource "aws_instance" "core-ec2" {
+resource "aws_instance" "core" {
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t3.medium"
 # vpc_id                      = aws_vpc.Core-vpc.id
@@ -304,7 +304,7 @@ resource "aws_instance" "core-ec2" {
 
   connection {
     type        = "ssh"
-    host        = aws_instance.core-ec2.public_ip
+    host        = aws_instance.core.public_ip
     user        = "ubuntu"
     private_key = tls_private_key.rsa.private_key_pem
   }
@@ -320,7 +320,7 @@ resource "aws_instance" "core-ec2" {
       iops        = 100
     }
   tags = {
-    Name = "core-ec2"
+    Name = "core"
   }
 }
 
@@ -328,7 +328,7 @@ resource "aws_instance" "core-ec2" {
 resource "null_resource" "Core-null-res" {
   connection {
     type        = "ssh"
-    host        = aws_instance.core-ec2.public_ip
+    host        = aws_instance.core.public_ip
     user        = "ubuntu"
     private_key = tls_private_key.rsa.private_key_pem
   }
@@ -342,7 +342,7 @@ resource "null_resource" "Core-null-res" {
       file("${path.module}/core.sh")
     ]
   }
-  depends_on = [aws_instance.core-ec2]
+  depends_on = [aws_instance.core]
 }
 
 # EC2 instance for RAN
