@@ -39,7 +39,7 @@ resource "aws_vpc" "RAN-vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "RAN-vpc"
+    Name = "RANI-vpc"
   }
 }
 
